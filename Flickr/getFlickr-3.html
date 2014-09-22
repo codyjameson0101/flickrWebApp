@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>  
+  <head>
+    <title>Flickr App</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+  </head>
+ <body>
+    <br>
+    Enter Flickr Tag
+    </br>
+    <input id="Flickr" />
+    <button id="search">Get Flickr images</button>
+    <div id="results"></div>
+    <script>
+      $("#search").click(function(){
+        $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?tags=dog&format=json&jsoncallback=?",
+        {
+          tags: $("#Flickr").val(),
+          tagmode: "any",
+          format: "json"
+        },
+        function(data) {
+          $.each(data.items, function(i,item){
+            $("<img/>").attr("src", item.media.m).prependTo("#results");
+            if ( i == 10 ) return false;
+          });
+        });
+      });
+    </script>
+    <header>
+    </header>
+
+    <main>
+     <div class="photos">
+     </div>
+    </main>
+
+    <footer>
+    </footer>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="javascripts/app3.js"></script>
+  </body>
+</html>
